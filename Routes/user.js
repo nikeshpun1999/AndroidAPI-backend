@@ -116,14 +116,15 @@ router.post('/updateprofile', Auth, function (req, res) {
         })
 })
 
-router.post('/updateprofile/Android/:id', function (req, res) {
+router.put('/updateprofile/Android/:id', function (req, res) {
     console.log("here")
     const uid = req.params.id;
+    console.log(uid);
     console.log(req.body);
 
-    User.update({ _id: uid }, { $set: req.body }, { new: true })
-        .then(function (user) {
-            res.json(user);
+    User.findByIdAndUpdate({ _id: uid }, req.body, { new: true })
+        .then(function () {
+            res.json("trueee");
         })
         .catch(function (e) {
             res.send(e);
@@ -160,4 +161,4 @@ router.post('/logout', Auth, async (req, res) => {
 })
 
 
-module.exports = router;
+module.exports = router;    

@@ -6,7 +6,7 @@ const Auth = require('../Middleware/auth');
 const path = require("path");
 
 const multer = require("multer");
-
+var ImageNamee = '';
 
 var storage = multer.diskStorage({
     destination: "images",
@@ -25,9 +25,10 @@ var imageFileFilter = (req, file, cb) => {
 
 var upload = multer({ storage: storage, fileFilter: imageFileFilter, limits: { fileSize: 1000000 } });
 
-router.post('/craftrecipe', upload.single('RecipeFile'), (req, res) => {
+router.post('/craftrecipe', (req, res) => {
     console.log(req.file);
     console.log("Testin API");
+
     //var response = "Nothing";
 
     var RecipeName = req.body.RecipeName;
@@ -140,6 +141,7 @@ var storage = multer.diskStorage({
     filename: (req, file, callback) => {
         let ext = path.extname(file.originalname);
         callback(null, "recipe" + Date.now() + ext);
+        // ImageNamee = "recipe" + Date.now() + ext;
     }
 });
 
